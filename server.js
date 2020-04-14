@@ -14,7 +14,7 @@ try {
   if (logs.length > LOGS_LIMIT) {
     console.log('--- clearing ' + (logs.length - LOGS_LIMIT) + ' old logs ---');
     for (let i = 0; i < logs.length - LOGS_LIMIT; i++) {
-      fs.unlinkSync(LOG_DIR + logs[i]);
+      fs.unlinkSync(LOG_DIR + '/' + logs[i]);
     };
   };
 } catch (err) {

@@ -2,7 +2,7 @@
 
 ## /3-closed-variables
 
-> uncaught error: 4/11/2020, 4:31:30 PM 
+> uncaught error: 4/12/2020, 3:59:30 PM 
 
 [../REVIEW.md](../REVIEW.md)
 

@@ -2,8 +2,9 @@
 
 ## /exercises
 
-> uncaught error: 4/11/2020, 4:31:30 PM 
+> uncaught error: 4/12/2020, 3:59:30 PM 
 
+* [/file.js](#filejs) - no status
 * [/1-identifying-closure](./1-identifying-closure/REVIEW.md) - no status
   * [/example-1-returning-functions.js](./1-identifying-closure/REVIEW.md#example-1-returning-functionsjs) - example - pass
   * [/example-2-never-creates-closure.js](./1-identifying-closure/REVIEW.md#example-2-never-creates-closurejs) - example - fail
@@ -29,4 +30,13 @@
   * [/exercise-1.js](./4-sharing-state/REVIEW.md#exercise-1js) - uncaught error
   * [/exercise-2.js](./4-sharing-state/REVIEW.md#exercise-2js) - uncaught error
   * [/exercise-3.js](./4-sharing-state/REVIEW.md#exercise-3js) - uncaught error
+
+---
+
+## /file.js
+
+* no status
+* [review source](./file.js)
+
+[TOP](#event-loop)
 
