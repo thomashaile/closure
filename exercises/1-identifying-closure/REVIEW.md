@@ -2,15 +2,15 @@
 
 ## /1-identifying-closure
 
-> uncaught error: 4/12/2020, 3:59:30 PM 
+> pass: 4/16/2020, 01:30:16 
 
 [../REVIEW.md](../REVIEW.md)
 
 * [/example-1-returning-functions.js](#example-1-returning-functionsjs) - example - pass
-* [/example-2-never-creates-closure.js](#example-2-never-creates-closurejs) - example - fail
-* [/example-3-always-creates-closure.js](#example-3-always-creates-closurejs) - example - no status
-* [/example-4-sometimes-creates-closure-a.js](#example-4-sometimes-creates-closure-ajs) - example - uncaught error
-* [/example-5-sometimes-creates-closure-b.js](#example-5-sometimes-creates-closure-bjs) - example - uncaught error
+* [/example-2-never-creates-closure.js](#example-2-never-creates-closurejs) - example - pass
+* [/example-3-always-creates-closure.js](#example-3-always-creates-closurejs) - example - pass
+* [/example-4-sometimes-creates-closure-a.js](#example-4-sometimes-creates-closure-ajs) - example - pass
+* [/example-5-sometimes-creates-closure-b.js](#example-5-sometimes-creates-closure-bjs) - example - pass
 
 ---
 
@@ -54,14 +54,14 @@ newFunction();
 
 ## /example-2-never-creates-closure.js
 
-* example - fail
+* example - pass
 * [review source](./example-2-never-creates-closure.js)
 
 ```txt
-- FAIL : ... when passed 4
-- FAIL : ... when passed a function
-- FAIL : ... when passed an array
-- FAIL : ... when passed itself
++ PASS : ... when passed 4
++ PASS : ... when passed a function
++ PASS : ... when passed an array
++ PASS : ... when passed itself
 ```
 
 ```js
@@ -70,30 +70,29 @@ newFunction();
 // the returned function must be declared inside the function call ("frame" on js tutor)
 
 const doesItClose = (func, arg) => {
-  const returnVal = func(arg);
-  const returnedAFunction = typeof returnVal === 'function';
-  const returnedArgument = arg === returnVal;
+    const returnVal = func(arg);
+    const returnedAFunction = typeof returnVal === 'function';
+    const returnedArgument = arg === returnVal;
 
-  const createsAClosure = returnedAFunction && !returnedArgument;
-  return createsAClosure;
+    const createsAClosure = returnedAFunction && !returnedArgument;
+    return createsAClosure;
 }
 
 const never = (x) => {
-  return x;
+    return x;
 }
 
 const whenPassed4 = doesItClose(never, 4);
-console.assert(whenPassed4 === null, "... when passed 4");
+console.assert(whenPassed4 === false, "... when passed 4"); //returns false
 
-const whenPassedAFunction = doesItClose(never, function () { });
-console.assert(whenPassedAFunction === null, "... when passed a function");
+const whenPassedAFunction = doesItClose(never, function() {});
+console.assert(whenPassedAFunction === false, "... when passed a function"); //returns false
 
 const whenPassedAnArray = doesItClose(never, []);
-console.assert(whenPassedAnArray === null, "... when passed an array");
+console.assert(whenPassedAnArray === false, "... when passed an array"); //returns false
 
 const whenPassedItself = doesItClose(never, never);
-console.assert(whenPassedItself === null, "... when passed itself");
-
+console.assert(whenPassedItself === false, "... when passed itself"); //returns false
 ```
 
 [TOP](#event-loop)
@@ -102,8 +101,15 @@ console.assert(whenPassedItself === null, "... when passed itself");
 
 ## /example-3-always-creates-closure.js
 
-* example - no status
+* example - pass
 * [review source](./example-3-always-creates-closure.js)
+
+```txt
++ PASS : ... when passed 4
++ PASS : ... when passed a function
++ PASS : ... when passed an array
++ PASS : ... when passed itself
+```
 
 ```js
 // any function that returns a new function creates a closure
@@ -111,35 +117,38 @@ console.assert(whenPassedItself === null, "... when passed itself");
 // the returned function must be declared inside the function call ("frame" on js tutor)
 
 const doesItClose = (func, arg) => {
-  const returnVal = func(arg);
-  const returnedAFunction = typeof returnVal === 'function';
-  const returnedArgument = arg === returnVal;
+    const returnVal = func(arg);
+    const returnedAFunction = typeof returnVal === 'function';
+    const returnedArgument = arg === returnVal;
 
-  const createsAClosure = returnedAFunction && !returnedArgument;
-  return createsAClosure;
+    const createsAClosure = returnedAFunction && !returnedArgument;
+    return createsAClosure;
 }
 
 const always = (x) => {
-  return function () {
-    console.log(x)
-  };
+    return function() {
+        console.log(x)
+    };
 }
 
 const whenPassed4 = doesItClose(always, 4);
 const alwaysLogs4 = always(4);
+console.assert(whenPassed4 === true, "... when passed 4"); //added this test assertion and returns true
 
-const whenPassedAFunction = doesItClose(always, function bye() { });
-const alwaysLogsHi = always(function hi() { });
+const whenPassedAFunction = doesItClose(always, function bye() {});
+const alwaysLogsHi = always(function hi() {});
+console.assert(whenPassedAFunction === true, "... when passed a function"); //added this test assertion and returns true
 
 const whenPassedAnArray = doesItClose(always, []);
 const alwaysLogsArray = always([]);
+console.assert(whenPassedAnArray === true, "... when passed an array"); //added this test assertion and returns true
 
 const whenPassedItself = doesItClose(always, always);
 const alwaysLogsAlways = always(always);
+console.assert(whenPassedItself === true, "... when passed itself"); //added this test assertion and returns true
 
 alwaysLogs4(), alwaysLogsHi(), alwaysLogsArray(), alwaysLogsAlways();
 alwaysLogs4(), alwaysLogsHi(), alwaysLogsArray(), alwaysLogsAlways();
-
 ```
 
 [TOP](#event-loop)
@@ -148,57 +157,51 @@ alwaysLogs4(), alwaysLogsHi(), alwaysLogsArray(), alwaysLogsAlways();
 
 ## /example-4-sometimes-creates-closure-a.js
 
-* example - uncaught error
+* example - pass
 * [review source](./example-4-sometimes-creates-closure-a.js)
 
 ```txt
-ReferenceError: x is not defined
-    at hi ( [ ... ] /exercises/1-identifying-closure/example-4-sometimes-creates-closure-a.js:30:30)
-    at Object.<anonymous> ( [ ... ] /exercises/1-identifying-closure/example-4-sometimes-creates-closure-a.js:32:1)
-    at Module._compile (internal/modules/cjs/loader.js:777:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:788:10)
-    at Module.load (internal/modules/cjs/loader.js:643:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
-    at Module.require (internal/modules/cjs/loader.js:683:19)
-    at require (internal/modules/cjs/helpers.js:16:16)
-    at evaluate ( [ ... ] /review.js:229:7)
-    at Object.<anonymous> ( [ ... ] /review.js:244:1)
++ PASS : ... when passed 4
++ PASS : ... when passed itself
++ PASS : ... when passed a function
 ```
 
 ```js
 const doesItClose = (func, arg) => {
-  const returnVal = func(arg);
-  const returnedAFunction = typeof returnVal === 'function';
-  const returnedArgument = arg === returnVal;
+    const returnVal = func(arg);
+    const returnedAFunction = typeof returnVal === 'function';
+    const returnedArgument = arg === returnVal;
 
-  const createsAClosure = returnedAFunction && !returnedArgument;
-  return createsAClosure;
+    const createsAClosure = returnedAFunction && !returnedArgument;
+    return createsAClosure;
 }
 
 const sometimes1 = (x) => {
-  if (typeof x === "function") {
-    return x;
-  } else {
-    return function () {
-      console.log(x)
-    };
-  }
+    if (typeof x === "function") {
+        return x;
+    } else {
+        return function() {
+            console.log(x)
+        };
+    }
 }
 
 const whenPassed4 = doesItClose(sometimes1, 4);
 const resultFrom4 = sometimes1(4);
 resultFrom4();
+console.assert(whenPassed4 === true, "... when passed 4"); //added this test assertion and returns true
 
 const whenPassedItself = doesItClose(sometimes1, sometimes1);
 const resultFromItself = sometimes1(sometimes1);
 resultFromItself();
+console.assert(whenPassedItself === false, "... when passed itself"); //added this test assertion and returns false
 
 const bye = () => console.log(x);
 const whenPassedAFunction = doesItClose(sometimes1, bye);
-const hi = () => console.log(x);
-const resultFromFunction = sometimes1(hi);
-resultFromFunction();
-
+//const hi = () => console.log(x);//x is not defined
+//const resultFromFunction = sometimes1(hi);
+//resultFromFunction();
+console.assert(whenPassedAFunction === false, "... when passed a function"); //added this test assertion and returns false
 ```
 
 [TOP](#event-loop)
@@ -207,41 +210,33 @@ resultFromFunction();
 
 ## /example-5-sometimes-creates-closure-b.js
 
-* example - uncaught error
+* example - pass
 * [review source](./example-5-sometimes-creates-closure-b.js)
 
 ```txt
-TypeError: resultFrom4 is not a function
-    at Object.<anonymous> ( [ ... ] /exercises/1-identifying-closure/example-5-sometimes-creates-closure-b.js:32:1)
-    at Module._compile (internal/modules/cjs/loader.js:777:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:788:10)
-    at Module.load (internal/modules/cjs/loader.js:643:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
-    at Module.require (internal/modules/cjs/loader.js:683:19)
-    at require (internal/modules/cjs/helpers.js:16:16)
-    at evaluate ( [ ... ] /review.js:229:7)
-    at Object.<anonymous> ( [ ... ] /review.js:244:1)
-    at Module._compile (internal/modules/cjs/loader.js:777:30)
++ PASS : ... when passed a function
++ PASS : ... when passed itself
++ PASS : ... when passed 4
 ```
 
 ```js
 const doesItClose = (func, arg) => {
-  const returnVal = func(arg);
-  const returnedAFunction = typeof returnVal === 'function';
-  const returnedArgument = arg === returnVal;
+    const returnVal = func(arg);
+    const returnedAFunction = typeof returnVal === 'function';
+    const returnedArgument = arg === returnVal;
 
-  const createsAClosure = returnedAFunction && !returnedArgument;
-  return createsAClosure;
+    const createsAClosure = returnedAFunction && !returnedArgument;
+    return createsAClosure;
 }
 
 const sometimes2 = (x) => {
-  if (typeof x === "function") {
-    return function () {
-      console.log(x)
+    if (typeof x === "function") {
+        return function() {
+            console.log(x)
+        };
+    } else {
+        return x;
     };
-  } else {
-    return x;
-  };
 }
 
 const bye = () => console.log(x);
@@ -249,15 +244,17 @@ const whenPassedAFunction = doesItClose(sometimes2, bye);
 const hi = () => console.log(x);
 const resultFromFunction = sometimes2(hi);
 resultFromFunction();
+console.assert(whenPassedAFunction === true, "... when passed a function"); //added this test assertion and returns true
 
 const whenPassedItself = doesItClose(sometimes2, sometimes2);
 const resultFromItself = sometimes2(sometimes2);
 resultFromItself();
+console.assert(whenPassedItself === true, "... when passed itself"); //added this test assertion and returns true
 
 const whenPassed4 = doesItClose(sometimes2, 4);
 const resultFrom4 = sometimes2(4);
-resultFrom4();
-
+//resultFrom4(); //not closure function
+console.assert(whenPassed4 === false, "... when passed 4"); //added this test assertion and returns false
 ```
 
 [TOP](#event-loop)

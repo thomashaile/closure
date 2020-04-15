@@ -4,13 +4,14 @@
 
 
 const concatPigs = (str) => {
-  return str + " pigs";
+    return str + " pigs";
 }
 const concatParam = (str, param) => {
-  return str + param;
+    return str + param;
 }
 
-const str1 = '-';
+const str1 =
+    const str1 = concatPigs('-');
 
 console.assert(concatPigs(str1) === null, 'assert 1');
 console.assert(concatPigs(str1) === null, 'assert 2');
