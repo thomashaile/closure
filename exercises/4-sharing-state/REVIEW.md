@@ -2,33 +2,40 @@
 
 ## /4-sharing-state
 
-> uncaught error: 4/12/2020, 3:59:30 PM 
+> syntaxError: 4/16/2020, 01:30:16 
 
 [../REVIEW.md](../REVIEW.md)
 
-* [/example-1-pure-functions.js](#example-1-pure-functionsjs) - example - fail
+* [/example-1-pure-functions.js](#example-1-pure-functionsjs) - example - syntaxError
 * [/example-2-pure-closures.js](#example-2-pure-closuresjs) - example - fail
 * [/example-3-mutating-closures.js](#example-3-mutating-closuresjs) - example - fail
-* [/exercise-1.js](#exercise-1js) - uncaught error
-* [/exercise-2.js](#exercise-2js) - uncaught error
-* [/exercise-3.js](#exercise-3js) - uncaught error
+* [/exercise-1.js](#exercise-1js) - pass
+* [/exercise-2.js](#exercise-2js) - pass
+* [/exercise-3.js](#exercise-3js) - pass
 
 ---
 
 ## /example-1-pure-functions.js
 
-* example - fail
+* example - syntaxError
 * [review source](./example-1-pure-functions.js)
 
 ```txt
-- FAIL : assert 1
-- FAIL : assert 2
-- FAIL : assert 3
-- FAIL : assert 4
-- FAIL : assert 5
-- FAIL : assert 6
-- FAIL : assert 7
-- FAIL : assert 8
+ [ ... ] /exercises/4-sharing-state/example-1-pure-functions.js:14
+    const str1 = concatPigs('-');
+    ^^^^^
+
+SyntaxError: Unexpected token 'const'
+    at wrapSafe (internal/modules/cjs/loader.js:1071:16)
+    at Module._compile (internal/modules/cjs/loader.js:1121:27)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1177:10)
+    at Module.load (internal/modules/cjs/loader.js:1001:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:900:14)
+    at Module.require (internal/modules/cjs/loader.js:1043:19)
+    at require (internal/modules/cjs/helpers.js:77:18)
+    at evaluate ( [ ... ] /review.js:229:7)
+    at Object.<anonymous> ( [ ... ] /review.js:244:1)
+    at Module._compile (internal/modules/cjs/loader.js:1157:30)
 ```
 
 ```js
@@ -38,13 +45,14 @@
 
 
 const concatPigs = (str) => {
-  return str + " pigs";
+    return str + " pigs";
 }
 const concatParam = (str, param) => {
-  return str + param;
+    return str + param;
 }
 
-const str1 = '-';
+const str1 =
+    const str1 = concatPigs('-');
 
 console.assert(concatPigs(str1) === null, 'assert 1');
 console.assert(concatPigs(str1) === null, 'assert 2');
@@ -58,7 +66,6 @@ console.assert(concatPigs(str2) === null, 'assert 5');
 console.assert(concatPigs(str2) === null, 'assert 6');
 console.assert(concatParam(str2, " cheese!") === null, 'assert 7');
 console.assert(concatParam(str2, " cheese!") === null, 'assert 8');
-
 ```
 
 [TOP](#event-loop)
@@ -181,31 +188,22 @@ console.assert(concatParam2(" cheese!") === null, 'assert 8');
 
 ## /exercise-1.js
 
-* uncaught error
+* pass
 * [review source](./exercise-1.js)
 
 ```txt
-ReferenceError: _ is not defined
-    at Object.<anonymous> ( [ ... ] /exercises/4-sharing-state/exercise-1.js:18:25)
-    at Module._compile (internal/modules/cjs/loader.js:777:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:788:10)
-    at Module.load (internal/modules/cjs/loader.js:643:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
-    at Module.require (internal/modules/cjs/loader.js:683:19)
-    at require (internal/modules/cjs/helpers.js:16:16)
-    at evaluate ( [ ... ] /review.js:229:7)
-    at Object.<anonymous> ( [ ... ] /review.js:244:1)
-    at Module._compile (internal/modules/cjs/loader.js:777:30)
++ PASS : assert str4
 ```
 
 ```js
 const str0 = "";
 
 function concatPigs(str) {
-  return str + " pigs";
+    return str + " pigs";
 }
+
 function concatParam(str, param) {
-  return str + " " + param;
+    return str + " " + param;
 }
 
 const str1 = concatPigs(str0);
@@ -216,8 +214,7 @@ const str3 = concatPigs(str2);
 
 const str4 = concatParam(str2, str3);
 
-console.assert(str4 === _, 'assert str4');
-
+console.assert(str4 === " pigs  rock!  pigs  rock! pigs", 'assert str4');
 ```
 
 [TOP](#event-loop)
@@ -226,38 +223,29 @@ console.assert(str4 === _, 'assert str4');
 
 ## /exercise-2.js
 
-* uncaught error
+* pass
 * [review source](./exercise-2.js)
 
 ```txt
-ReferenceError: _ is not defined
-    at Object.<anonymous> ( [ ... ] /exercises/4-sharing-state/exercise-2.js:14:1)
-    at Module._compile (internal/modules/cjs/loader.js:777:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:788:10)
-    at Module.load (internal/modules/cjs/loader.js:643:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
-    at Module.require (internal/modules/cjs/loader.js:683:19)
-    at require (internal/modules/cjs/helpers.js:16:16)
-    at evaluate ( [ ... ] /review.js:229:7)
-    at Object.<anonymous> ( [ ... ] /review.js:244:1)
-    at Module._compile (internal/modules/cjs/loader.js:777:30)
++ PASS : assert str4
 ```
 
 ```js
 const closeIt = (str) => {
-  return [
-    function () {
-      return str + " pigs";
-    },
-    function (param) {
-      return str + param;
-    }
-  ]
+    return [
+        function() {
+            return str + " pigs";
+        },
+        function(param) {
+            return str + param;
+        }
+    ]
 }
 
 let closedFunctions = closeIt("-");
-const concatPigs = closedFunctions[0], concatParam = closedFunctions[1];
-closedFunctions = _;
+const concatPigs = closedFunctions[0],
+    concatParam = closedFunctions[1];
+closedFunctions = 0;
 
 const str1 = concatPigs();
 
@@ -267,8 +255,7 @@ const str3 = concatPigs();
 
 const str4 = concatParam(str3);
 
-console.assert(str4 === _, 'assert str4');
-
+console.assert(str4 === "-- pigs", 'assert str4');
 ```
 
 [TOP](#event-loop)
@@ -277,38 +264,29 @@ console.assert(str4 === _, 'assert str4');
 
 ## /exercise-3.js
 
-* uncaught error
+* pass
 * [review source](./exercise-3.js)
 
 ```txt
-ReferenceError: _ is not defined
-    at Object.<anonymous> ( [ ... ] /exercises/4-sharing-state/exercise-3.js:14:1)
-    at Module._compile (internal/modules/cjs/loader.js:777:30)
-    at Object.Module._extensions..js (internal/modules/cjs/loader.js:788:10)
-    at Module.load (internal/modules/cjs/loader.js:643:32)
-    at Function.Module._load (internal/modules/cjs/loader.js:556:12)
-    at Module.require (internal/modules/cjs/loader.js:683:19)
-    at require (internal/modules/cjs/helpers.js:16:16)
-    at evaluate ( [ ... ] /review.js:229:7)
-    at Object.<anonymous> ( [ ... ] /review.js:244:1)
-    at Module._compile (internal/modules/cjs/loader.js:777:30)
++ PASS : assert str4
 ```
 
 ```js
 const closeIt = (str) => {
-  return [
-    function () {
-      return str += " pigs";
-    },
-    function (param) {
-      return str += param;
-    }
-  ]
+    return [
+        function() {
+            return str += " pigs";
+        },
+        function(param) {
+            return str += param;
+        }
+    ]
 }
 
 let closedFunctions = closeIt("-");
-const concatPigs = closedFunctions[0], concatParam = closedFunctions[1];
-closedFunctions = _;
+const concatPigs = closedFunctions[0],
+    concatParam = closedFunctions[1];
+closedFunctions = 0;
 
 const str1 = concatPigs();
 
@@ -318,8 +296,7 @@ const str3 = concatPigs();
 
 const str4 = concatParam(str3);
 
-console.assert(str4 === _, 'assert str4');
-
+console.assert(str4 === "- pigs rock! pigs- pigs rock! pigs", 'assert str4');
 ```
 
 [TOP](#event-loop)
