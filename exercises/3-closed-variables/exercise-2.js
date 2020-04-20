@@ -20,10 +20,10 @@ const result4 = closure2("xyz");
 console.assert(result4 === 'x~y~z', "assert 4");
 
 
-const closure3 = closesParentParamter("--");
+const closure3 = closesParentParamter("--"); 
 const result5 = closure3('01');
-console.assert(result5 === "0--1", "assert 5");
+console.assert(result5 === "0--1", "assert 5");//i modify it
 
 const closure4 = closesParentParamter("--");
 const result6 = closure4("10");
-console.assert(result6 === "1--0", "assert 6");
+console.assert(result6 === "1--0", "assert 6");//i modify it
