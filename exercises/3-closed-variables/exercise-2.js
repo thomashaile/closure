@@ -1,7 +1,6 @@
 const closesParentParamter = (param) => {
-    // write me!
-    return function(ownParam) {
-        return ownParam.split('').join(param);
+    return function(localParam) {
+        return localParam.split('').join(param);
     }
 };
 
